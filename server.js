@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors');
 const morgan = require('morgan');
 
+const route = require('./api/routes/pagesNames')
+
 const app = express();
 
 require('./db')()
@@ -14,7 +16,7 @@ app.use(bodyParser.json());
 
 app.use(cors({credentials: true, origin: true}));
 
-app.use(require('./api/routes/pagesNames'))
+app.use("/admin", route)
 
 const http = require('http');
 
