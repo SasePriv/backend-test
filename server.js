@@ -7,7 +7,7 @@ const app = express();
 
 require('./db')()
 
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
 app.use(bodyParser.json());
