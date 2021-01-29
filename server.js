@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 app.use(cors({credentials: true, origin: true}));
 
-app.use("/admin", route)
+app.use(route)
 
 const http = require('http');
 

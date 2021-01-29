@@ -94,8 +94,8 @@ exports.generateDynamicLink = async (req, res) => {
 
     const data = {
         dynamicLinkInfo: {
-            "domainUriPrefix": "https://test.amagpieinthesky.com",
-            "link": `http://amagpieinthesky/${name}`,
+            "domainUriPrefix": `https://test.amagpieinthesky.com/${name}`,
+            "link": `http://amagpieinthesky.com/${name}`,
             "androidInfo": {
               "androidPackageName": "com.donetest",
               "androidFallbackLink": "https://play.google.com/store/apps/details?id=com.instagram.android"
