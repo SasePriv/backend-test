@@ -37,10 +37,13 @@ const credentials = {
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(5001, () => {
-    console.log('Listening on port: ', port);
+const portHttp = 5001;
+const portHttps = 5000;
+
+httpServer.listen(portHttp, () => {
+    console.log('Listening on port: ', portHttp);
 })
 
-httpsServer.listen(5000, () => {
-    console.log('Listening on port: ', port);
+httpsServer.listen(portHttps, () => {
+    console.log('Listening on port: ', portHttps);
 })
