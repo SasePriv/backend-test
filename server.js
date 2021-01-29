@@ -2,11 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const morgan = require('morgan');
-
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
 const route = require('./api/routes/pagesNames')
 
 const app = express();
 
+//Database
 require('./db')()
 
 app.use(morgan('dev'));
@@ -16,14 +19,28 @@ app.use(bodyParser.json());
 
 app.use(cors({credentials: true, origin: true}));
 
+//Routes
 app.use(route)
 
-const http = require('http');
+//Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/amagpieinthesky.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/amagpieinthesky.com/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/amagpieinthesky.com/chain.pem', 'utf8');
 
-const port = 5000;
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
 
-const server = http.createServer(app);
+// Starting both http & https servers
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
-server.listen(port, () => {
+httpServer.listen(5001, () => {
+    console.log('Listening on port: ', port);
+})
+
+httpsServer.listen(5000, () => {
     console.log('Listening on port: ', port);
 })
